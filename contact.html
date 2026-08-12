@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Raymond Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              charcoal: '#121212',
+              sand: '#F5F5F7',
+              accent: '#A39382'
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-charcoal text-sand font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Header / Nav -->
+  <header class="p-6 md:p-10 flex justify-between items-center border-b border-neutral-800">
+    <a href="index.html" class="text-xl font-bold tracking-widest uppercase">Raymond / Studio</a>
+    <nav class="hidden md:flex space-x-8 text-sm uppercase tracking-wider text-neutral-400">
+      <a href="index.html#projects" class="hover:text-sand transition">Projects</a>
+      <a href="index.html#gallery" class="hover:text-sand transition">Gallery</a>
+      <a href="about.html" class="hover:text-sand transition">About</a>
+      <a href="contact.html" class="text-sand border-b border-sand pb-1 transition">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="px-6 py-16 md:px-10 max-w-6xl mx-auto w-full">
+    <p class="text-xs uppercase tracking-widest text-accent mb-4">[04] Get In Touch</p>
+    <h1 class="text-3xl md:text-5xl font-light tracking-tight leading-snug mb-12">
+      Initiate a spatial project or mural inquiry.
+    </h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pt-8 border-t border-neutral-800">
+      
+      <!-- Direct Contact Details -->
+      <div class="md:col-span-5 space-y-8">
+        <div>
+          <span class="text-xs font-mono uppercase text-accent tracking-widest block mb-2">Direct Inquiry</span>
+          <p class="text-lg text-sand font-light">contact@raymondstudio.com</p>
+          <p class="text-sm text-neutral-400 font-mono mt-1">+234 (0) 800 000 0000</p>
+        </div>
+
+        <div>
+          <span class="text-xs font-mono uppercase text-accent tracking-widest block mb-2">Studio Location</span>
+          <p class="text-sm text-neutral-300 leading-relaxed">
+            Lagos, Nigeria<br>
+            Available for remote architectural design & physical global installations.
+          </p>
+        </div>
+
+        <div>
+          <span class="text-xs font-mono uppercase text-accent tracking-widest block mb-2">Social & Portfolios</span>
+          <div class="flex space-x-6 text-xs uppercase tracking-widest text-neutral-400 font-mono">
+            <a href="#" target="_blank" class="hover:text-sand transition">Instagram</a>
+            <a href="#" target="_blank" class="hover:text-sand transition">LinkedIn</a>
+            <a href="#" target="_blank" class="hover:text-sand transition">Behance</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="md:col-span-7">
+        <form name="contact" method="POST" data-netlify="true" class="space-y-6">
+          <!-- Hidden input required for Netlify static form processing -->
+          <input type="hidden" name="form-name" value="contact" />
+
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Your Name *</label>
+            <input type="text" name="name" required placeholder="e.g., Jane Doe" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Email Address *</label>
+              <input type="email" name="email" required placeholder="jane@example.com" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Phone / WhatsApp</label>
+              <input type="text" name="phone" placeholder="+234..." class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Project Scope</label>
+              <select name="category" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+                <option value="Architecture">Architectural Design</option>
+                <option value="Mural">Physical Wall Mural</option>
+                <option value="3D Visualization">3D Rendering / Concept</option>
+                <option value="Other">Other Collaboration</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Estimated Timeline</label>
+              <input type="text" name="timeline" placeholder="e.g., Immediate, 1-3 Months" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Project Brief / Details *</label>
+            <textarea name="message" rows="5" required placeholder="Describe site location, dimensions, architectural goals..." class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition"></textarea>
+          </div>
+
+          <button type="submit" class="w-full bg-sand text-charcoal py-4 text-xs font-medium uppercase tracking-widest hover:bg-accent hover:text-white transition">
+            Send Project Inquiry
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p-6 md:p-10 border-t border-neutral-800 text-xs text-neutral-500 flex justify-between items-center">
+    <p>© 2026 Studio Raymond. All rights reserved.</p>
+    <a href="/admin" class="underline text-neutral-400 hover:text-sand">Client Admin Portal</a>
+  </footer>
+
+</body>
+</html>
