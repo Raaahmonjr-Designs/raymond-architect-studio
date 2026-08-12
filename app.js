@@ -1,15 +1,27 @@
 let allProjects = [];
 
+// Helper function to guarantee assets uploaded via CMS have correct leading paths
+function formatMediaPath(path) {
+  if (!path) return '';
+  // Return untouched if it's an external URL or already starts with a slash
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
+    return path;
+  }
+  return '/' + path;
+}
+
 // Fetch and parse CMS media markdown files
 async function loadCMSContent() {
   const grid = document.getElementById('media-grid');
   const loader = document.getElementById('loading-state');
 
   try {
-    // Netlify/GitHub API endpoint or direct static file listing
-    // Fetches the repository directory contents where Decap CMS commits new files
-    const response = await fetch('https://api.github.com/repos/ORICHA/raymond-architect-studio/contents/content/projects');
-    
+    // Cache buster forces GitHub API to fetch live repo contents without serving stale cached lists
+    const cacheBuster = new Date().getTime();
+    const response = await fetch(
+      `https://api.github.com/repos/ORICHA/raymond-architect-studio/contents/content/projects?cache=${cacheBuster}`
+    );
+
     if (!response.ok) {
       throw new Error('No uploaded content found yet.');
     }
@@ -19,7 +31,8 @@ async function loadCMSContent() {
 
     for (const file of files) {
       if (file.name.endsWith('.md')) {
-        const fileRes = await fetch(file.download_url);
+        // Fetch fresh individual file contents bypassing cache
+        const fileRes = await fetch(`${file.download_url}?cache=${cacheBuster}`);
         const text = await fileRes.text();
         const parsed = parseFrontmatter(text);
         if (parsed) allProjects.push(parsed);
@@ -68,17 +81,23 @@ function renderGrid(items) {
     const card = document.createElement('div');
     card.className = 'bg-neutral-900 border border-neutral-800 p-4 transition hover:border-neutral-700 flex flex-col justify-between';
 
+    // Format media paths to guarantee proper browser loading
+    const videoSrc = formatMediaPath(item.video);
+    const thumbSrc = formatMediaPath(item.thumbnail);
+
     let mediaHTML = '';
     if (item.video && item.video !== '') {
       mediaHTML = `
-        <video controls class="w-full aspect-video object-cover mb-4 rounded-sm bg-black" poster="${item.thumbnail || ''}">
-          <source src="${item.video}" type="video/mp4">
-          Your browser does not support video playback.
-        </video>`;
+        <div class="mb-4">
+          <video controls preload="metadata" class="w-full aspect-video object-cover rounded-sm bg-black" poster="${thumbSrc}">
+            <source src="${videoSrc}" type="video/mp4">
+            Your browser does not support video playback.
+          </video>
+        </div>`;
     } else if (item.thumbnail && item.thumbnail !== '') {
       mediaHTML = `
-        <div class="aspect-video bg-neutral-800 mb-4 overflow-hidden cursor-pointer" onclick="openLightbox('${item.thumbnail}', '${item.title}')">
-          <img src="${item.thumbnail}" alt="${item.title}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+        <div class="aspect-video bg-neutral-800 mb-4 overflow-hidden cursor-pointer" onclick="openLightbox('${thumbSrc}', '${item.title || ''}')">
+          <img src="${thumbSrc}" alt="${item.title || 'Project Image'}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
         </div>`;
     }
 
@@ -95,7 +114,7 @@ function renderGrid(items) {
   });
 }
 
-// Updated Category filter toggle
+// Category filter toggle
 function filterCategory(category) {
   // Update button active states
   document.querySelectorAll('.filter-btn').forEach(btn => {
