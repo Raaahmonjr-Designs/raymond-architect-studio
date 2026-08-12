@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "projects"
+    label: "Projects & Media"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Architecture", "Murals", "3D Visualization", "Physical"] }
+      - { label: "Featured Image / Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Video Upload", name: "video", widget: "file", required: false }
+      - { label: "Description", name: "body", widget: "markdown" }
