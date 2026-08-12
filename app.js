@@ -1,22 +1,43 @@
 let allProjects = [];
 
-// Helper function to guarantee assets uploaded via CMS have correct leading paths
+// Guarantees paths start with a leading slash
 function formatMediaPath(path) {
   if (!path) return '';
-  // Return untouched if it's an external URL or already starts with a slash
+  path = path.trim().replace(/^["']|["']$/g, '');
   if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
     return path;
   }
   return '/' + path;
 }
 
-// Fetch and parse CMS media markdown files
+// Robust YAML Frontmatter Parser (strips \r and trailing quotes)
+function parseFrontmatter(text) {
+  const match = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
+  if (!match) return null;
+
+  const yaml = match[1];
+  const body = match[2].trim();
+  const data = {};
+
+  yaml.split('\n').forEach(line => {
+    const cleanLine = line.replace('\r', '').trim();
+    const colonIndex = cleanLine.indexOf(':');
+    if (colonIndex !== -1) {
+      const key = cleanLine.substring(0, colonIndex).trim().toLowerCase();
+      let val = cleanLine.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
+      data[key] = val;
+    }
+  });
+
+  return { ...data, body };
+}
+
+// Fetch published markdown projects from GitHub API
 async function loadCMSContent() {
   const grid = document.getElementById('media-grid');
   const loader = document.getElementById('loading-state');
 
   try {
-    // Cache buster forces GitHub API to fetch live repo contents without serving stale cached lists
     const cacheBuster = new Date().getTime();
     const response = await fetch(
       `https://api.github.com/repos/ORICHA/raymond-architect-studio/contents/content/projects?cache=${cacheBuster}`
@@ -31,7 +52,6 @@ async function loadCMSContent() {
 
     for (const file of files) {
       if (file.name.endsWith('.md')) {
-        // Fetch fresh individual file contents bypassing cache
         const fileRes = await fetch(`${file.download_url}?cache=${cacheBuster}`);
         const text = await fileRes.text();
         const parsed = parseFrontmatter(text);
@@ -39,6 +59,7 @@ async function loadCMSContent() {
       }
     }
 
+    // Default load: show all projects
     renderGrid(allProjects);
   } catch (error) {
     if (loader) {
@@ -47,33 +68,14 @@ async function loadCMSContent() {
   }
 }
 
-// Custom simple YAML frontmatter parser
-function parseFrontmatter(text) {
-  const match = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
-  if (!match) return null;
-
-  const yaml = match[1];
-  const body = match[2].trim();
-  const data = {};
-
-  yaml.split('\n').forEach(line => {
-    const [key, ...valueParts] = line.split(':');
-    if (key && valueParts.length) {
-      let val = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
-      data[key.trim()] = val;
-    }
-  });
-
-  return { ...data, body };
-}
-
-// Render project items to HTML
+// Render media grid items
 function renderGrid(items) {
   const grid = document.getElementById('media-grid');
+  if (!grid) return;
   grid.innerHTML = '';
 
   if (items.length === 0) {
-    grid.innerHTML = `<p class="text-neutral-500 text-sm">No items in this category.</p>`;
+    grid.innerHTML = `<p class="text-neutral-500 text-sm col-span-full">No items in this category.</p>`;
     return;
   }
 
@@ -81,23 +83,31 @@ function renderGrid(items) {
     const card = document.createElement('div');
     card.className = 'bg-neutral-900 border border-neutral-800 p-4 transition hover:border-neutral-700 flex flex-col justify-between';
 
-    // Format media paths to guarantee proper browser loading
-    const videoSrc = formatMediaPath(item.video);
-    const thumbSrc = formatMediaPath(item.thumbnail);
+    // Flexible key lookup (handles variations in CMS keys)
+    const videoFile = item.video || item['video upload'] || '';
+    const thumbnailFile = item.thumbnail || item['featured image / thumbnail (optional)'] || '';
+    
+    const videoSrc = formatMediaPath(videoFile);
+    const thumbSrc = formatMediaPath(thumbnailFile);
 
     let mediaHTML = '';
-    if (item.video && item.video !== '') {
+    if (videoSrc && videoSrc !== '') {
       mediaHTML = `
-        <div class="mb-4">
-          <video controls preload="metadata" class="w-full aspect-video object-cover rounded-sm bg-black" poster="${thumbSrc}">
+        <div class="mb-4 aspect-video bg-black rounded-sm overflow-hidden">
+          <video controls preload="metadata" class="w-full h-full object-cover" poster="${thumbSrc}">
             <source src="${videoSrc}" type="video/mp4">
-            Your browser does not support video playback.
+            Your browser does not support HTML5 video.
           </video>
         </div>`;
-    } else if (item.thumbnail && item.thumbnail !== '') {
+    } else if (thumbSrc && thumbSrc !== '') {
       mediaHTML = `
         <div class="aspect-video bg-neutral-800 mb-4 overflow-hidden cursor-pointer" onclick="openLightbox('${thumbSrc}', '${item.title || ''}')">
           <img src="${thumbSrc}" alt="${item.title || 'Project Image'}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+        </div>`;
+    } else {
+      mediaHTML = `
+        <div class="aspect-video bg-neutral-800 mb-4 flex items-center justify-center text-neutral-600 text-xs uppercase tracking-widest font-mono">
+          No Media Attached
         </div>`;
     }
 
@@ -114,15 +124,13 @@ function renderGrid(items) {
   });
 }
 
-// Category filter toggle
+// Clean category filtering
 function filterCategory(category) {
-  // Update button active states
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.remove('bg-sand', 'text-charcoal');
     btn.classList.add('border', 'border-neutral-700');
   });
 
-  // Highlight selected button
   const selectedBtn = Array.from(document.querySelectorAll('.filter-btn')).find(
     btn => btn.innerText.trim().toLowerCase() === category.toLowerCase() || 
            (category === 'All' && btn.innerText.includes('All'))
@@ -133,28 +141,30 @@ function filterCategory(category) {
     selectedBtn.classList.remove('border', 'border-neutral-700');
   }
 
-  // Filter project array
   if (category === 'All') {
     renderGrid(allProjects);
   } else {
-    const filtered = allProjects.filter(
-      p => p.category && p.category.toLowerCase() === category.toLowerCase()
-    );
+    const filtered = allProjects.filter(p => {
+      if (!p.category) return false;
+      return p.category.trim().toLowerCase() === category.trim().toLowerCase();
+    });
     renderGrid(filtered);
   }
 }
 
-// Lightbox triggers
+// Lightbox
 function openLightbox(imageSrc, title) {
   const lightbox = document.getElementById('lightbox');
   const content = document.getElementById('lightbox-content');
-  content.innerHTML = `<img src="${imageSrc}" alt="${title}" class="max-w-full max-h-[85vh] object-contain mx-auto border border-neutral-800">`;
-  lightbox.classList.remove('hidden');
+  if (lightbox && content) {
+    content.innerHTML = `<img src="${imageSrc}" alt="${title}" class="max-w-full max-h-[85vh] object-contain mx-auto border border-neutral-800">`;
+    lightbox.classList.remove('hidden');
+  }
 }
 
 function closeLightbox() {
-  document.getElementById('lightbox').classList.add('hidden');
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) lightbox.classList.add('hidden');
 }
 
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', loadCMSContent);
