@@ -45,23 +45,32 @@
     <a href="#projects" class="inline-block bg-sand text-charcoal px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-accent hover:text-white transition">View Selected Works</a>
   </section>
 
-  <!-- Projects Showcase Section -->
-  <section id="projects" class="px-6 py-16 md:px-10 border-t border-neutral-800">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-xs uppercase tracking-widest text-neutral-500 mb-8">[01] Featured Media</h2>
-      <div id="media-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Dynamic media cards inserted via CMS or JS -->
-        <div class="bg-neutral-900 border border-neutral-800 p-4">
-          <div class="aspect-video bg-neutral-800 mb-4 overflow-hidden">
-             <!-- Placeholder for Video / Image -->
-             <img src="https://via.placeholder.com/600x400" alt="Architectural Model" class="w-full h-full object-cover">
-          </div>
-          <span class="text-xs text-accent uppercase tracking-wider">Physical Architecture</span>
-          <h3 class="text-lg font-medium mt-1">Structural Pavilion VIII</h3>
-        </div>
-      </div>
+  <!-- Category Filter Bar -->
+  <section class="px-6 pt-12 md:px-10 max-w-6xl mx-auto border-t border-neutral-800">
+    <div class="flex flex-wrap gap-3 text-xs uppercase tracking-wider" id="filter-buttons">
+      <button onclick="filterCategory('All')" class="filter-btn active bg-sand text-charcoal px-4 py-2 font-medium transition">All Works</button>
+      <button onclick="filterCategory('Architecture')" class="filter-btn border border-neutral-700 hover:border-sand px-4 py-2 transition">Architecture</button>
+      <button onclick="filterCategory('Murals')" class="filter-btn border border-neutral-700 hover:border-sand px-4 py-2 transition">Murals</button>
+      <button onclick="filterCategory('3D Visualization')" class="filter-btn border border-neutral-700 hover:border-sand px-4 py-2 transition">3D Visualization</button>
+      <button onclick="filterCategory('Physical')" class="filter-btn border border-neutral-700 hover:border-sand px-4 py-2 transition">Physical</button>
     </div>
   </section>
+
+  <!-- Dynamic Gallery Grid Container -->
+  <section id="projects" class="px-6 py-12 md:px-10 max-w-6xl mx-auto w-full">
+    <div id="media-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Media cards dynamically injected via app.js -->
+      <p id="loading-state" class="text-neutral-500 text-sm">Loading studio portfolio...</p>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal for Fullscreen Image Preview -->
+  <div id="lightbox" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-4" onclick="closeLightbox()">
+    <div class="max-w-4xl max-h-[90vh] relative" onclick="event.stopPropagation()">
+      <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-sand text-xs font-mono uppercase tracking-widest hover:text-accent">&times; Close</button>
+      <div id="lightbox-content"></div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="p-6 md:p-10 border-t border-neutral-800 text-xs text-neutral-500 flex justify-between items-center">
@@ -69,5 +78,7 @@
     <a href="/admin" class="underline text-neutral-400 hover:text-sand">Client Admin Portal</a>
   </footer>
 
+  <!-- Dynamic Content JavaScript -->
+  <script src="app.js"></script>
 </body>
 </html>
