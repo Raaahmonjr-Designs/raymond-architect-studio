@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Raymond Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              charcoal: '#121212',
+              sand: '#F5F5F7',
+              accent: '#A39382'
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-charcoal text-sand font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Header / Nav -->
+  <header class="p-6 md:p-10 flex justify-between items-center border-b border-neutral-800">
+    <a href="index.html" class="text-xl font-bold tracking-widest uppercase">Raymond / Studio</a>
+    <nav class="hidden md:flex space-x-8 text-sm uppercase tracking-wider text-neutral-400">
+      <a href="index.html#projects" class="hover:text-sand transition">Projects</a>
+      <a href="index.html#gallery" class="hover:text-sand transition">Gallery</a>
+      <a href="about.html" class="text-sand border-b border-sand pb-1 transition">About</a>
+      <a href="index.html#contact" class="hover:text-sand transition">Contact</a>
+    </nav>
+  </header>
+
+  <!-- About Hero -->
+  <section class="px-6 py-16 md:px-10 max-w-6xl mx-auto w-full">
+    <p class="text-xs uppercase tracking-widest text-accent mb-4">[01] Practice Philosophy</p>
+    <h1 class="text-3xl md:text-5xl font-light tracking-tight leading-snug mb-8 max-w-3xl">
+      Bridging structural precision, spatial artistry, and physical permanent installations.
+    </h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pt-8 border-t border-neutral-800">
+      <div class="md:col-span-7 space-y-6 text-neutral-300 font-light leading-relaxed">
+        <p>
+          Studio Raymond operates as a multidisciplinary architectural and visual design practice. We explore the space where physical structures, 3D digital visualization, and painted murals intersect to define human experiences within physical spaces.
+        </p>
+        <p>
+          Founded by Raymond, the practice emphasizes minimalist architectural aesthetics, raw materiality, and spatial clarity. From initial conceptual 3D drafting to high-impact physical murals and structural executions, every intervention is crafted with meticulous attention to silence, scale, and context.
+        </p>
+      </div>
+
+      <div class="md:col-span-5 space-y-4 text-xs uppercase tracking-widest">
+        <div class="p-4 border border-neutral-800 bg-neutral-900/50">
+          <span class="text-accent block mb-1">Focus Areas</span>
+          <p class="text-sand font-mono">Architectural Drafting, Murals, 3D Renderings, Built Environment</p>
+        </div>
+        <div class="p-4 border border-neutral-800 bg-neutral-900/50">
+          <span class="text-accent block mb-1">Location</span>
+          <p class="text-sand font-mono">Available Globally / Remote & On-Site Installations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Services -->
+  <section class="px-6 py-16 md:px-10 max-w-6xl mx-auto w-full border-t border-neutral-800">
+    <p class="text-xs uppercase tracking-widest text-neutral-500 mb-10">[02] Capabilities & Services</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 border border-neutral-800 bg-neutral-900/30 hover:border-neutral-700 transition">
+        <span class="text-accent font-mono text-xs mb-2 block">[01]</span>
+        <h3 class="text-lg font-medium mb-3 text-sand">Architectural Design</h3>
+        <p class="text-neutral-400 text-sm leading-relaxed">
+          Conceptual drafting, spatial planning, and structural design solutions tailored for contemporary residential and commercial spaces.
+        </p>
+      </div>
+
+      <div class="p-6 border border-neutral-800 bg-neutral-900/30 hover:border-neutral-700 transition">
+        <span class="text-accent font-mono text-xs mb-2 block">[02]</span>
+        <h3 class="text-lg font-medium mb-3 text-sand">3D Architectural Visualization</h3>
+        <p class="text-neutral-400 text-sm leading-relaxed">
+          High-precision 3D renderings, spatial modeling, and immersive digital walk-throughs to visualize projects before construction.
+        </p>
+      </div>
+
+      <div class="p-6 border border-neutral-800 bg-neutral-900/30 hover:border-neutral-700 transition">
+        <span class="text-accent font-mono text-xs mb-2 block">[03]</span>
+        <h3 class="text-lg font-medium mb-3 text-sand">Physical Murals & Spatial Art</h3>
+        <p class="text-neutral-400 text-sm leading-relaxed">
+          Custom site-specific wall murals, textural paintings, and large-scale physical artistic installations integrated into interior or exterior architecture.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Process -->
+  <section class="px-6 py-16 md:px-10 max-w-6xl mx-auto w-full border-t border-neutral-800">
+    <p class="text-xs uppercase tracking-widest text-neutral-500 mb-10">[03] Work Methodology</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="border-l border-neutral-800 pl-4">
+        <span class="text-accent font-mono text-xs block mb-1">01. Discovery</span>
+        <h4 class="text-sm font-medium mb-2 text-sand">Brief & Site Analysis</h4>
+        <p class="text-neutral-500 text-xs leading-relaxed">Evaluating client vision, physical constraints, light, and architectural context.</p>
+      </div>
+
+      <div class="border-l border-neutral-800 pl-4">
+        <span class="text-accent font-mono text-xs block mb-1">02. Concept</span>
+        <h4 class="text-sm font-medium mb-2 text-sand">3D Wireframing</h4>
+        <p class="text-neutral-500 text-xs leading-relaxed">Translating ideas into precise 3D renderings, moodboards, and structural drafts.</p>
+      </div>
+
+      <div class="border-l border-neutral-800 pl-4">
+        <span class="text-accent font-mono text-xs block mb-1">03. Production</span>
+        <h4 class="text-sm font-medium mb-2 text-sand">Execution & Painting</h4>
+        <p class="text-neutral-500 text-xs leading-relaxed">Physical construction management, wall surface preparation, and mural application.</p>
+      </div>
+
+      <div class="border-l border-neutral-800 pl-4">
+        <span class="text-accent font-mono text-xs block mb-1">04. Delivery</span>
+        <h4 class="text-sm font-medium mb-2 text-sand">Final Handover</h4>
+        <p class="text-neutral-500 text-xs leading-relaxed">Quality inspection, final finishing, and full project documentation handover.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="px-6 py-16 md:px-10 max-w-6xl mx-auto w-full border-t border-neutral-800">
+    <div class="bg-neutral-900 border border-neutral-800 p-8 md:p-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div>
+        <h2 class="text-2xl font-light text-sand mb-2">Have an upcoming project or mural collaboration?</h2>
+        <p class="text-neutral-400 text-sm">Available for architectural consultation, custom murals, and physical design projects.</p>
+      </div>
+      <a href="index.html#contact" class="bg-sand text-charcoal px-6 py-3 text-xs font-medium uppercase tracking-wider hover:bg-accent hover:text-white transition whitespace-nowrap">Start a Project</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p-6 md:p-10 border-t border-neutral-800 text-xs text-neutral-500 flex justify-between items-center">
+    <p>© 2026 Studio Raymond. All rights reserved.</p>
+    <a href="/admin" class="underline text-neutral-400 hover:text-sand">Client Admin Portal</a>
+  </footer>
+
+</body>
+</html>
