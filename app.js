@@ -1,16 +1,23 @@
 let allProjects = [];
 
-// Guarantees paths start with a leading slash
+// Guarantees paths leading to uploads convert to direct Raw GitHub CDN URLs
 function formatMediaPath(path) {
   if (!path) return '';
   path = path.trim().replace(/^["']|["']$/g, '');
-  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
+
+  // If already full HTTP URL, return as is
+  if (path.startsWith('http://') || path.startsWith('https://')) {
     return path;
   }
-  return '/' + path;
+
+  // Strip leading slash or dot slash
+  let cleanPath = path.replace(/^\.\//, '').replace(/^\//, '');
+
+  // Direct CDN fallback to ensure media loads even before static site rebuilds
+  return `https://raw.githubusercontent.com/ORICHA/raymond-architect-studio/main/${cleanPath}`;
 }
 
-// Robust YAML Frontmatter Parser (strips \r and trailing quotes)
+// Robust YAML Frontmatter Parser
 function parseFrontmatter(text) {
   const match = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
   if (!match) return null;
@@ -59,7 +66,6 @@ async function loadCMSContent() {
       }
     }
 
-    // Default load: show all projects
     renderGrid(allProjects);
   } catch (error) {
     if (loader) {
@@ -83,7 +89,7 @@ function renderGrid(items) {
     const card = document.createElement('div');
     card.className = 'bg-neutral-900 border border-neutral-800 p-4 transition hover:border-neutral-700 flex flex-col justify-between';
 
-    // Flexible key lookup (handles variations in CMS keys)
+    // Flexible key lookup
     const videoFile = item.video || item['video upload'] || '';
     const thumbnailFile = item.thumbnail || item['featured image / thumbnail (optional)'] || '';
     
@@ -91,15 +97,15 @@ function renderGrid(items) {
     const thumbSrc = formatMediaPath(thumbnailFile);
 
     let mediaHTML = '';
-    if (videoSrc && videoSrc !== '') {
+    if (videoFile && videoFile !== '') {
       mediaHTML = `
         <div class="mb-4 aspect-video bg-black rounded-sm overflow-hidden">
           <video controls preload="metadata" class="w-full h-full object-cover" poster="${thumbSrc}">
-            <source src="${videoSrc}" type="video/mp4">
-            Your browser does not support HTML5 video.
+            <source src="${videoSrc}">
+            Your browser does not support HTML5 video playback.
           </video>
         </div>`;
-    } else if (thumbSrc && thumbSrc !== '') {
+    } else if (thumbnailFile && thumbnailFile !== '') {
       mediaHTML = `
         <div class="aspect-video bg-neutral-800 mb-4 overflow-hidden cursor-pointer" onclick="openLightbox('${thumbSrc}', '${item.title || ''}')">
           <img src="${thumbSrc}" alt="${item.title || 'Project Image'}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
