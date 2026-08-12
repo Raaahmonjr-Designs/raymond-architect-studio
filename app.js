@@ -95,22 +95,32 @@ function renderGrid(items) {
   });
 }
 
-// Category filter toggle
+// Updated Category filter toggle
 function filterCategory(category) {
-  // Update button active state
+  // Update button active states
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.remove('bg-sand', 'text-charcoal');
     btn.classList.add('border', 'border-neutral-700');
-    if (btn.innerText.toLowerCase() === category.toLowerCase() || (category === 'All' && btn.innerText.includes('All'))) {
-      btn.classList.add('bg-sand', 'text-charcoal');
-      btn.classList.remove('border', 'border-neutral-700');
-    }
   });
 
+  // Highlight selected button
+  const selectedBtn = Array.from(document.querySelectorAll('.filter-btn')).find(
+    btn => btn.innerText.trim().toLowerCase() === category.toLowerCase() || 
+           (category === 'All' && btn.innerText.includes('All'))
+  );
+
+  if (selectedBtn) {
+    selectedBtn.classList.add('bg-sand', 'text-charcoal');
+    selectedBtn.classList.remove('border', 'border-neutral-700');
+  }
+
+  // Filter project array
   if (category === 'All') {
     renderGrid(allProjects);
   } else {
-    const filtered = allProjects.filter(p => p.category && p.category.toLowerCase() === category.toLowerCase());
+    const filtered = allProjects.filter(
+      p => p.category && p.category.toLowerCase() === category.toLowerCase()
+    );
     renderGrid(filtered);
   }
 }
