@@ -9,7 +9,7 @@ public_folder: "assets/uploads"
 
 collections:
   - name: "projects"
-    label: "Projects & Media"
+    label: "Projects & Works"
     folder: "content/projects"
     create: true
     slug: "{{slug}}"
@@ -17,5 +17,18 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Category", name: "category", widget: "select", options: ["Architecture", "Murals", "3D Visualization", "Physical"] }
       - { label: "Featured Image / Thumbnail", name: "thumbnail", widget: "image", required: false }
-      - { label: "Video Upload", name: "video", widget: "file", required: false }
-      - { label: "Description", name: "body", widget: "markdown" }
+      - { label: "Video Upload (.mp4)", name: "video", widget: "file", required: false }
+      - { label: "Architectural PDF / Blueprint", name: "pdf", widget: "file", required: false }
+      - { label: "Project Description", name: "body", widget: "markdown" }
+
+  - name: "gallery"
+    label: "Gallery Visuals"
+    folder: "content/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title / Caption", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Architecture", "Murals", "3D Visualization", "Physical"] }
+      - { label: "Image Upload", name: "image", widget: "image" }
+      - { label: "PDF Documentation (Optional)", name: "pdf", widget: "file", required: false }
+      - { label: "Notes", name: "body", widget: "markdown", required: false }
