@@ -3,7 +3,7 @@ backend:
   repo: Raaahmonjr-Designs/raymond-architect-studio
   branch: main
   base_url: https://decap-oauth-worker.colorhashira-19e.workers.dev
-  auth_endpoint: /auth
+  auth_endpoint: auth
 
 media_folder: "assets/uploads"
 public_folder: "assets/uploads"
