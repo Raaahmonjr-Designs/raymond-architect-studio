@@ -13,8 +13,8 @@ function formatMediaPath(path) {
   // Strip leading slash or dot slash
   let cleanPath = path.replace(/^\.\//, '').replace(/^\//, '');
 
-  // Direct CDN fallback to ensure media loads even before static site rebuilds
-  return `https://raw.githubusercontent.com/ORICHA/raymond-architect-studio/main/${cleanPath}`;
+  // Direct CDN fallback to ensure media loads reliably from Raymond's repo
+  return `https://raw.githubusercontent.com/Raaahmonjr-Designs/raymond-architect-studio/main/${cleanPath}`;
 }
 
 // Robust YAML Frontmatter Parser
@@ -47,7 +47,7 @@ async function loadCMSContent() {
   try {
     const cacheBuster = new Date().getTime();
     const response = await fetch(
-      `https://api.github.com/repos/ORICHA/raymond-architect-studio/contents/content/projects?cache=${cacheBuster}`
+      `https://api.github.com/repos/Raaahmonjr-Designs/raymond-architect-studio/contents/content/projects?cache=${cacheBuster}`
     );
 
     if (!response.ok) {
