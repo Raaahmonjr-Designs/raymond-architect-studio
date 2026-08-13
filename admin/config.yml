@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Raaahmonjr-Designs/raymond-architect-studio
   branch: main
-  base_url: https://decap-bridge.com
+  base_url: https://decap-oauth.cloudflare.workers.dev # Updated working endpoint
 
 media_folder: "assets/uploads"
 public_folder: "assets/uploads"
