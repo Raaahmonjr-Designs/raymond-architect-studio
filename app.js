@@ -74,7 +74,7 @@ async function loadCMSContent() {
   }
 }
 
-// Render media grid items
+// Render media grid items (Updated to render PDF download/view buttons)
 function renderGrid(items) {
   const grid = document.getElementById('media-grid');
   if (!grid) return;
@@ -91,10 +91,12 @@ function renderGrid(items) {
 
     // Flexible key lookup
     const videoFile = item.video || item['video upload'] || '';
-    const thumbnailFile = item.thumbnail || item['featured image / thumbnail (optional)'] || '';
+    const thumbnailFile = item.thumbnail || item['featured image / thumbnail (optional)'] || item.image || '';
+    const pdfFile = item.pdf || item['architectural pdf / blueprint'] || '';
     
     const videoSrc = formatMediaPath(videoFile);
     const thumbSrc = formatMediaPath(thumbnailFile);
+    const pdfSrc = formatMediaPath(pdfFile);
 
     let mediaHTML = '';
     if (videoFile && videoFile !== '') {
@@ -117,12 +119,24 @@ function renderGrid(items) {
         </div>`;
     }
 
+    // PDF Blueprint action button
+    let pdfHTML = '';
+    if (pdfFile && pdfFile !== '') {
+      pdfHTML = `
+        <a href="${pdfSrc}" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-wider text-accent hover:text-sand transition border border-neutral-800 bg-neutral-950 px-3 py-2 rounded-sm w-full justify-center">
+          <span>📄 View PDF Blueprint</span>
+        </a>`;
+    }
+
     card.innerHTML = `
-      <div>
-        ${mediaHTML}
-        <span class="text-[10px] text-accent uppercase tracking-widest font-mono">[0${index + 1}] ${item.category || 'General'}</span>
-        <h3 class="text-lg font-medium mt-1 text-sand">${item.title || 'Untitled Project'}</h3>
-        <p class="text-neutral-400 text-xs mt-2 line-clamp-3">${item.body || ''}</p>
+      <div class="flex flex-col h-full justify-between">
+        <div>
+          ${mediaHTML}
+          <span class="text-[10px] text-accent uppercase tracking-widest font-mono">[0${index + 1}] ${item.category || 'General'}</span>
+          <h3 class="text-lg font-medium mt-1 text-sand">${item.title || 'Untitled Project'}</h3>
+          <p class="text-neutral-400 text-xs mt-2 line-clamp-3">${item.body || ''}</p>
+        </div>
+        ${pdfHTML}
       </div>
     `;
 
