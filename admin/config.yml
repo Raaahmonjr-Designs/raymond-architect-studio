@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: ORICHA/raymond-architect-studio
+  repo: oricha-25/raymond-architect-studio
   branch: main
   base_url: https://decap-bridge.com
 
