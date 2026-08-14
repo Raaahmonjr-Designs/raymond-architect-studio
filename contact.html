@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | Raymond Studio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              charcoal: '#121212',
-              sand: '#F5F5F7',
-              accent: '#A39382'
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Raymond Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#121212',
+            sand: '#F5F5F7',
+            accent: '#A39382'
           }
         }
       }
-    </script>
+    }
+  </script>
 </head>
 <body class="bg-charcoal text-sand font-sans antialiased min-h-screen flex flex-col justify-between">
 
@@ -26,8 +26,8 @@
   <header class="p-6 md:p-10 flex justify-between items-center border-b border-neutral-800">
     <a href="index.html" class="text-xl font-bold tracking-widest uppercase">Raymond / Studio</a>
     <nav class="hidden md:flex space-x-8 text-sm uppercase tracking-wider text-neutral-400">
-      <a href="index.html#projects" class="hover:text-sand transition">Projects</a>
-      <a href="index.html#gallery" class="hover:text-sand transition">Gallery</a>
+      <a href="index.html" class="hover:text-sand transition">Projects</a>
+      <a href="gallery.html" class="hover:text-sand transition">Gallery</a>
       <a href="about.html" class="hover:text-sand transition">About</a>
       <a href="contact.html" class="text-sand border-b border-sand pb-1 transition">Contact</a>
     </nav>
@@ -77,31 +77,32 @@
         </div>
       </div>
 
-      <!-- Netlify Contact Form -->
+      <!-- Functional Cloudflare-Ready Contact Form -->
       <div class="md:col-span-7">
-        <form name="contact" method="POST" data-netlify="true" class="space-y-6">
-          <input type="hidden" name="form-name" value="contact" />
+        <form id="contactForm" class="space-y-6">
+          <!-- Honeypot Anti-Spam (Invisible to real users) -->
+          <input type="text" id="_honey" name="_honey" style="display:none">
 
           <div>
             <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Your Name *</label>
-            <input type="text" name="name" required placeholder="e.g., Jane Doe" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+            <input type="text" id="name" name="name" required placeholder="e.g., Jane Doe" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Email Address *</label>
-              <input type="email" name="email" required placeholder="jane@example.com" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+              <input type="email" id="email" name="email" required placeholder="jane@example.com" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
             </div>
             <div>
               <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Phone / WhatsApp</label>
-              <input type="text" name="phone" placeholder="080..." class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+              <input type="text" id="phone" name="phone" placeholder="080..." class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Project Scope</label>
-              <select name="category" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+              <select id="category" name="category" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
                 <option value="Architecture">Architectural Design</option>
                 <option value="Mural">Physical Wall Mural</option>
                 <option value="3D Visualization">3D Rendering / Concept</option>
@@ -110,16 +111,19 @@
             </div>
             <div>
               <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Estimated Timeline</label>
-              <input type="text" name="timeline" placeholder="e.g., Immediate, 1-3 Months" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
+              <input type="text" id="timeline" name="timeline" placeholder="e.g., Immediate, 1-3 Months" class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition">
             </div>
           </div>
 
           <div>
             <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2 font-mono">Project Brief / Details *</label>
-            <textarea name="message" rows="5" required placeholder="Describe site location, dimensions, architectural goals..." class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition"></textarea>
+            <textarea id="message" name="message" rows="5" required placeholder="Describe site location, dimensions, architectural goals..." class="w-full bg-neutral-900 border border-neutral-800 p-4 text-sand text-sm focus:outline-none focus:border-accent transition"></textarea>
           </div>
 
-          <button type="submit" class="w-full bg-sand text-charcoal py-4 text-xs font-medium uppercase tracking-widest hover:bg-accent hover:text-white transition">
+          <!-- In-Page Feedback Notification -->
+          <div id="formStatus" class="hidden text-xs font-mono p-4 border transition"></div>
+
+          <button type="submit" id="submitBtn" class="w-full bg-sand text-charcoal py-4 text-xs font-medium uppercase tracking-widest hover:bg-accent hover:text-white transition">
             Send Project Inquiry
           </button>
         </form>
@@ -128,10 +132,65 @@
     </div>
   </section>
 
- <!-- Footer -->
-<footer class="p-6 md:p-10 border-t border-neutral-800 text-xs text-neutral-500 flex justify-between items-center">
-  <p>© 2026 Studio Raymond. All rights reserved.</p>
-</footer>
+  <!-- Footer -->
+  <footer class="p-6 md:p-10 border-t border-neutral-800 text-xs text-neutral-500 flex justify-between items-center">
+    <p>© 2026 Studio Raymond. All rights reserved.</p>
+  </footer>
 
+  <!-- Asynchronous Form Submission Script -->
+  <script>
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Bot protection check
+      if (document.getElementById('_honey').value !== '') {
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'SENDING INQUIRY...';
+      formStatus.classList.add('hidden');
+
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value || 'Not provided',
+        project_scope: document.getElementById('category').value,
+        timeline: document.getElementById('timeline').value || 'Not specified',
+        message: document.getElementById('message').value,
+        _subject: `New Spatial Inquiry from ${document.getElementById('name').value}`,
+        _captcha: false
+      };
+
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/colorhashira@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          formStatus.className = 'block bg-emerald-950/40 text-emerald-300 border border-emerald-800 p-4 text-xs font-mono';
+          formStatus.textContent = '✓ Thank you. Your inquiry has been transmitted directly to Raymond Studio.';
+          contactForm.reset();
+        } else {
+          throw new Error('Transmission failed');
+        }
+      } catch (err) {
+        formStatus.className = 'block bg-rose-950/40 text-rose-300 border border-rose-800 p-4 text-xs font-mono';
+        formStatus.textContent = '✕ Error sending inquiry. Please retry or email ColorHashira@gmail.com directly.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'SEND PROJECT INQUIRY';
+      }
+    });
+  </script>
 </body>
 </html>
