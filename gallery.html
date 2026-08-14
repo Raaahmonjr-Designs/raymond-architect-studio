@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Visual Archive</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="gallery.css" />
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">STUDIO BRAND</a>
+      <nav class="nav-links">
+        <a href="index.html">Projects</a>
+        <a href="gallery.html" class="active">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="gallery-hero">
+    <h1>VISUAL ARCHIVE & WORKS</h1>
+    <p>Curated architectural captures, 3D renderings, site murals & physical models</p>
+  </section>
+
+  <!-- Dynamic Filter Bar with Category Counts -->
+  <div class="filter-wrapper">
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-category="all">
+        ALL WORKS <span class="count-badge" id="count-all">0</span>
+      </button>
+      <button class="filter-btn" data-category="Architecture">
+        ARCHITECTURE <span class="count-badge" id="count-Architecture">0</span>
+      </button>
+      <button class="filter-btn" data-category="3D Visualization">
+        3D VISUALIZATION <span class="count-badge" id="count-3D Visualization">0</span>
+      </button>
+      <button class="filter-btn" data-category="Murals">
+        MURALS <span class="count-badge" id="count-Murals">0</span>
+      </button>
+      <button class="filter-btn" data-category="Physical">
+        PHYSICAL <span class="count-badge" id="count-Physical">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Masonry Gallery Grid -->
+  <main class="gallery-container">
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Dynamic Content Cards Loaded via JavaScript -->
+    </div>
+  </main>
+
+  <!-- View-Only Lightbox Modal -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-overlay" id="lightboxOverlay"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose">&times;</button>
+      <div class="lightbox-media">
+        <img id="lightboxImage" src="" alt="Full preview" />
+      </div>
+      <div class="lightbox-details">
+        <span class="lightbox-category" id="lightboxCategory"></span>
+        <h2 class="lightbox-title" id="lightboxTitle"></h2>
+        <p class="lightbox-notes" id="lightboxNotes"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="gallery.js"></script>
+</body>
+</html>
