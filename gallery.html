@@ -3,69 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery | Visual Archive</title>
+  <title>Gallery | RAYMOND / STUDIO</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="gallery.css" />
 </head>
 <body>
 
-  <!-- Navigation Header -->
+  <!-- Site Navigation Header (Matches Index Exactly) -->
   <header class="site-header">
-    <div class="header-container">
-      <a href="index.html" class="brand-logo">STUDIO BRAND</a>
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">RAYMOND / STUDIO</a>
       <nav class="nav-links">
-        <a href="index.html">Projects</a>
-        <a href="gallery.html" class="active">Gallery</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="index.html">PROJECTS</a>
+        <a href="gallery.html" class="active">GALLERY</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
       </nav>
     </div>
   </header>
 
-  <!-- Page Header -->
+  <!-- Editorial Hero Section -->
   <section class="gallery-hero">
-    <h1>VISUAL ARCHIVE & WORKS</h1>
-    <p>Curated architectural captures, 3D renderings, site murals & physical models</p>
+    <div class="section-tag">[00] CURATED VISUAL ARCHIVE</div>
+    <h1 class="hero-title">Atmosphere, form &amp; captured detail.</h1>
+    <p class="hero-subtitle">Visual study across architectural forms, 3D renderings, site murals, and physical mockups.</p>
   </section>
 
-  <!-- Dynamic Filter Bar with Category Counts -->
-  <div class="filter-wrapper">
-    <div class="filter-bar" id="filterBar">
+  <!-- Filter Bar (Matches Index Filter Bar Style) -->
+  <div class="filter-section">
+    <div class="filter-container" id="filterBar">
       <button class="filter-btn active" data-category="all">
-        ALL WORKS <span class="count-badge" id="count-all">0</span>
+        All Works <span class="count-pill" id="count-all">0</span>
       </button>
       <button class="filter-btn" data-category="Architecture">
-        ARCHITECTURE <span class="count-badge" id="count-Architecture">0</span>
-      </button>
-      <button class="filter-btn" data-category="3D Visualization">
-        3D VISUALIZATION <span class="count-badge" id="count-3D Visualization">0</span>
+        Architecture <span class="count-pill" id="count-Architecture">0</span>
       </button>
       <button class="filter-btn" data-category="Murals">
-        MURALS <span class="count-badge" id="count-Murals">0</span>
+        Murals <span class="count-pill" id="count-Murals">0</span>
+      </button>
+      <button class="filter-btn" data-category="3D Visualization">
+        3D Visualization <span class="count-pill" id="count-3D Visualization">0</span>
       </button>
       <button class="filter-btn" data-category="Physical">
-        PHYSICAL <span class="count-badge" id="count-Physical">0</span>
+        Physical <span class="count-pill" id="count-Physical">0</span>
       </button>
     </div>
   </div>
 
-  <!-- Masonry Gallery Grid -->
-  <main class="gallery-container">
+  <!-- Gallery Works Grid -->
+  <main class="gallery-wrapper">
     <div class="gallery-grid" id="galleryGrid">
-      <!-- Dynamic Content Cards Loaded via JavaScript -->
+      <!-- Injected dynamically from CMS -->
     </div>
   </main>
 
-  <!-- View-Only Lightbox Modal -->
-  <div class="lightbox-modal" id="lightboxModal">
+  <!-- Minimalist Dark Lightbox Modal -->
+  <div class="lightbox-modal" id="lightboxModal" aria-hidden="true">
     <div class="lightbox-overlay" id="lightboxOverlay"></div>
-    <div class="lightbox-content">
-      <button class="lightbox-close" id="lightboxClose">&times;</button>
-      <div class="lightbox-media">
-        <img id="lightboxImage" src="" alt="Full preview" />
+    <div class="lightbox-dialog">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close modal">&times;</button>
+      <div class="lightbox-image-wrap">
+        <img id="lightboxImage" src="" alt="Work preview" />
       </div>
-      <div class="lightbox-details">
-        <span class="lightbox-category" id="lightboxCategory"></span>
+      <div class="lightbox-info">
+        <span class="lightbox-tag" id="lightboxCategory"></span>
         <h2 class="lightbox-title" id="lightboxTitle"></h2>
         <p class="lightbox-notes" id="lightboxNotes"></p>
       </div>
